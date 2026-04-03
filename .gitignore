@@ -1,0 +1,3 @@
+aws-3tire-terraform/.terraform/
+aws-3tire-terraform/.tfstate
+aws-3tire-terraform/.tfstate.backup
