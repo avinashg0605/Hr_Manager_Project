@@ -1,3 +1,6 @@
+variable "vpc_id" {}
+variable "public_subnet_id" {}
+
 variable "bastion_ec2_type" {
   description = "bastion server"
   type = string
