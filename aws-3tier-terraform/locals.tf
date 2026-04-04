@@ -12,14 +12,14 @@ locals {
   }
 
   names = {
-    vpc            = "${local.project_name}-vpc"
-    igw            = "${local.project_name}-igw"
-    public_subnet_1  = "${local.project_name}-public-subnet"
-    public_subnet_2 = "${local.project_name}-public-subnet"
-    private_subnet_1 = "${local.project_name}-private-subnet"
-    private_subnet_2 = "${local.project_name}-private-subnet"
-    public_rt      = "${local.project_name}-public-rt"
-    private_rt     = "${local.project_name}-private-rt"
-    nat            = "${local.project_name}-nat"
+    vpc                 = "${local.project_name}-vpc"
+    igw                 = "${local.project_name}-igw"
+    public_subnet_1     = "${local.project_name}-public-subnet"
+    public_subnet_2     = "${local.project_name}-public-subnet"
+    private_subnet_1    = "${local.project_name}-private-subnet"
+    private_subnet_2    = "${local.project_name}-private-subnet"
+    public_rt           = "${local.project_name}-public-rt"
+    private_rt          = "${local.project_name}-private-rt"
+    nat                 = "${local.project_name}-nat"
   }
 }

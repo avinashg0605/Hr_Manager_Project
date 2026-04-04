@@ -51,17 +51,21 @@ module "ec2" {
 module "alb" {
   source = "./modules/alb"
   alb_sg = module.sg.alb_sg
-  
-  alb_type = var.alb_type
-  alb_port = var.alb_port
+  alb_config = [
+    var.alb_config.alb_type,
+    var.alb_config.alb_port
+    ]
   
 }
 
 module "asg" {
   source = "./modules/asg"
   aws_lb_target_group = module.alb.aws_lb_target_group
-  desired_capacity = var.desired_capacity
-  max_size = var.max_size
-  min_size = var.min_size
+  asg_config = [
+  var.asg_config.desired_capacity,
+  var.asg_config.min_size,
+  var.asg_config.max_size
+  ]
+
   public_ec2_sg = module.sg.public_ec2_sg
 }

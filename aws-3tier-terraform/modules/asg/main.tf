@@ -9,9 +9,9 @@ resource "aws_launch_template" "lt" {
 }
 
 resource "aws_autoscaling_group" "asg" {
-  desired_capacity = var.desired_capacity
-  max_size         = var.max_size
-  min_size         = var.min_size
+  desired_capacity = var.asg_config.desired_capacity
+  max_size         = var.asg_config.max_size
+  min_size         = var.asg_config.min_size
 
   vpc_zone_identifier = [
     aws_subnet.private_app_1.id,

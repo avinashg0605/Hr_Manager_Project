@@ -44,13 +44,12 @@ variable "api_ec2" {
   }))
 }
 
-variable "alb_type" {
-  description = "Alb type"
-  type = string
-}
-variable "alb_port" {
-  description = "alb port number"
-  type = number
+variable "alb_config" {
+  description = "ALB configuration"
+  type = list(object({
+    alb_type = string
+    alb_port = number
+  }))
 }
 
 variable "desired_capacity" {
