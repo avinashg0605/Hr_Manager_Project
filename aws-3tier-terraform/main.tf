@@ -18,7 +18,7 @@ module "ec2" {
   
   public_subnet_1_id    = module.vpc.public_subnet_1_id
   
-    bastion_server_config = var.bastion_server_config
-    bastion_sg = module.sg.bastion_sg_id
+  bastion_server_config = var.bastion_server_config
+  bastion_sg = module.sg.bastion_sg_id
     
 }
