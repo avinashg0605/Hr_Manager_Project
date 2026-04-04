@@ -17,58 +17,69 @@ resource "local_file" "private_key" {
 }
 
 #################################
-# Security Group for Bastion
-#################################
-resource "aws_security_group" "bastion_sg" {
-  name        = "${local.project_name}-public-sg"
-  description = "Allow SSH and HTTP"
-  vpc_id      = aws_vpc.main.id
-
-  # SSH from your IP
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["YOUR_IP/32"]  # set your IP in variables.tf or tfvars
-  }
-
-  # HTTP from anywhere
-  ingress {
-    description = "HTTP"
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  # All outbound allowed
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags = {
-    Name = "${local.project_name}-public-sg"
-  }
-}
-
-#################################
-# Bastion EC2 Instance
+# BASTION EC2 Instance
 #################################
 resource "aws_instance" "bastion" {
-  instance_type = var.bastion_ec2_type
-  ami           = var.bastion_ec2_image
-  subnet_id     = aws_subnet.public_subnet_1.id  # place it in public subnet
+  instance_type = var.bastion_server_config.instance_type
+  ami           = var.bastion_server_config.ami_id
+  subnet_id     = var.public_subnet_1_id
   security_groups = [aws_security_group.bastion_sg.name]
 
   root_block_device {
-    volume_size = var.bastion_ebs_volume
+    volume_size = var.bastion_server_config.ebs_volume_size
   }
 
   tags = {
     Name = "${local.project_name}-bastion"
   }
+}
+
+#################################
+# WEB EC2 Instance
+#################################
+resource "aws_instance" "web_ec2" {
+  for_each = { for server in var.web_ec2 : server.name => server }
+
+  ami                    = each.value.ami
+  instance_type          = each.value.instance_type
+  availability_zone      = each.value.availability_zone
+  subnet_id              = each.value.subnet_id
+  key_name               = each.value.key_name
+  vpc_security_group_ids = var.public_ec2_sg
+
+  root_block_device {
+    volume_size = each.value.ebs_volume_size
+  }
+
+  tags = merge(
+    each.value.tags,
+    {
+      Name = each.value.name
+    }
+  )
+}
+
+#################################
+# API EC2 Instance
+#################################
+
+resource "aws_instance" "api_ec2" {
+  for_each = { for server in var.api_ec2 : server.name => server }
+
+  ami                    = each.value.ami
+  instance_type          = each.value.instance_type
+  availability_zone      = each.value.availability_zone
+  subnet_id              = each.value.subnet_id
+  key_name               = each.value.key_name
+  vpc_security_group_ids = var.private_ec2_sg
+  root_block_device {
+    volume_size = each.value.ebs_volume_size
+  }
+
+  tags = merge(
+    each.value.tags,
+    {
+      Name = each.value.name
+    }
+  )
 }

@@ -11,17 +11,60 @@ variable "private_subnet_cidr" {
   type = list(string)
 }
 
-variable "bastion_ec2_type" {
-  description = "bastion server"
-  type = string
+variable "bastion_server_config" {
+  description = "Bastion server"
+  type = list(object({
+    instance_type = string
+    ami_id = string
+    ebs_volume_size = number
+  }))
 }
 
-variable "bastion_ec2_image" {
-  description = "bastion ec2 image id"
-  type = string
+variable "web_ec2" {
+  type = list(object({
+    name              = string
+    ami               = string
+    instance_type     = string
+    availability_zone = string
+    key_name          = string
+    ebs_volume_size   = number
+    tags              = map(string)
+  }))
 }
 
-variable "bastion_ebs_volume" {
-  description = "bastion ec2 ebd volume"
+variable "api_ec2" {
+  type = list(object({
+    name              = string
+    ami               = string
+    instance_type     = string
+    availability_zone = string
+    key_name          = string
+    ebs_volume_size   = number
+    tags              = map(string)
+  }))
+}
+
+variable "alb_type" {
+  description = "Alb type"
+  default = string
+}
+variable "alb_port" {
+  description = "alb port number"
+  default = number
+}
+
+variable "desired_capacity" {
+    description = "ASG desired_capacity"
+    type = number
+  
+}
+
+variable "min_size" {
+  description = "ASG min_size"
+  type = number
+}
+
+variable "max_size" {
+  description = "ASG max_size"
   type = number
 }
