@@ -46,11 +46,11 @@ variable "api_ec2" {
 
 variable "alb_type" {
   description = "Alb type"
-  default = string
+  type = string
 }
 variable "alb_port" {
   description = "alb port number"
-  default = number
+  type = number
 }
 
 variable "desired_capacity" {

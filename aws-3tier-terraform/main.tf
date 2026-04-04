@@ -6,7 +6,7 @@ module "vpc" {
   private_subnet_cidr = var.private_subnet_cidr
 
 }
-module "asg" {
+module "sg" {
   source = "./modules/sg"
   vpc_id = module.vpc.vpc_id
 }
