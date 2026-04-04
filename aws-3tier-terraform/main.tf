@@ -18,11 +18,11 @@ module "ec2" {
   
   public_subnet_1_id    = module.vpc.public_subnet_1_id
   
-  bastion_server_config = {
+  bastion_server_config = [
     var.bastion_server_config.instance_type,
     var.bastion_server_config.ami_id,
     var.bastion_server_config.ebs_volume_size
-  }
+  ]
     # alb_sg = module.sg.alb_sg
     public_ec2_sg = module.sg.public_ec2_sg
     # private_ec2_sg = module.sg.private_ec2_sg
