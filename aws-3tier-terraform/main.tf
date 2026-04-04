@@ -48,24 +48,24 @@ module "ec2" {
   ]
 }
 
-module "alb" {
-  source = "./modules/alb"
-  alb_sg = module.sg.alb_sg
-  alb_config = [
-    var.alb_config.alb_type,
-    var.alb_config.alb_port
-    ]
+# module "alb" {
+#   source = "./modules/alb"
+#   alb_sg = module.sg.alb_sg
+#   alb_config = [
+#     var.alb_config.alb_type,
+#     var.alb_config.alb_port
+#     ]
   
-}
+# }
 
-module "asg" {
-  source = "./modules/asg"
-  aws_lb_target_group = module.alb.aws_lb_target_group
-  asg_config = [
-  var.asg_config.desired_capacity,
-  var.asg_config.min_size,
-  var.asg_config.max_size
-  ]
+# module "asg" {
+#   source = "./modules/asg"
+#   aws_lb_target_group = module.alb.aws_lb_target_group
+#   asg_config = [
+#   var.asg_config.desired_capacity,
+#   var.asg_config.min_size,
+#   var.asg_config.max_size
+#   ]
 
-  public_ec2_sg = module.sg.public_ec2_sg
-}
+#   public_ec2_sg = module.sg.public_ec2_sg
+# }
