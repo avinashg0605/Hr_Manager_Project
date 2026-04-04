@@ -18,53 +18,11 @@ module "ec2" {
   
   public_subnet_1_id    = module.vpc.public_subnet_1_id
   
-    bastion_server_config = [var.bastion_server_config.instance_type,
+    bastion_server_config = [
+    var.bastion_server_config.instance_type,
     var.bastion_server_config.ami_id,
-     var.bastion_server_config.ebs_volume_size,
+    var.bastion_server_config.ebs_volume_size,
     ]
-    public_ec2_sg = module.sg.public_ec2_sg
-    # private_ec2_sg = module.sg.private_ec2_sg
-    # alb_sg = module.sg.alb_sg
-  
-#   web_ec2 =[
-#       var.web_ec2.name,
-#       var.web_ec2.ami,
-#       var.web_ec2.instance_type,
-#       var.web_ec2.availability_zone,
-#       var.web_ec2.key_pair,
-#       var.web_ec2.ebs_volume_size,
-#       var.web_ec2.tags             
-#   ]
-
-#   api_ec2 =[
-#       var.api_ec2.name,
-#       var.api_ec2.ami,
-#       var.api_ec2.instance_type,
-#       var.api_ec2.availability_zone,
-#       var.api_ec2.key_pair,
-#       var.api_ec2.ebs_volume_size,
-#       var.api_ec2.tags             
-#   ]
+    bastion_sg = module.sg.bastion_sg_id
+    
 }
-
-# module "alb" {
-#   source = "./modules/alb"
-#   alb_sg = module.sg.alb_sg
-#   alb_config = [
-#     var.alb_config.alb_type,
-#     var.alb_config.alb_port
-#     ]
-  
-# }
-
-# module "asg" {
-#   source = "./modules/asg"
-#   aws_lb_target_group = module.alb.aws_lb_target_group
-#   asg_config = [
-#   var.asg_config.desired_capacity,
-#   var.asg_config.min_size,
-#   var.asg_config.max_size
-#   ]
-
-#   public_ec2_sg = module.sg.public_ec2_sg
-# }
