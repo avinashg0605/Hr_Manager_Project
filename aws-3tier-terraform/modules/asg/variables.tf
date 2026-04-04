@@ -3,9 +3,9 @@ variable "public_ec2_sg" {}
 
 variable "asg_config" {
   description = "ASG configuration"
-  type = list(object({
+  type = object({
     desired_capacity = number
     min_size = number
     max_size = number
-  }))
+  })
 }

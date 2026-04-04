@@ -5,12 +5,11 @@ variable "public_ec2_sg" {}
 variable "private_ec2_sg" {}
 
 variable "bastion_server_config" {
-  description = "Bastion server"
-  type = list(object({
-    instance_type = string
-    ami_id = string
+  type = object({
+    instance_type   = string
+    ami_id          = string
     ebs_volume_size = number
-  }))
+  })
 }
 
 variable "web_ec2" {

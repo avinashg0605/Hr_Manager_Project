@@ -12,12 +12,11 @@ variable "private_subnet_cidr" {
 }
 
 variable "bastion_server_config" {
-  description = "Bastion server"
-  type = list(object({
-    instance_type = string
-    ami_id = string
+  type = object({
+    instance_type   = string
+    ami_id          = string
     ebs_volume_size = number
-  }))
+  })
 }
 
 variable "web_ec2" {
@@ -46,24 +45,17 @@ variable "api_ec2" {
 
 variable "alb_config" {
   description = "ALB configuration"
-  type = list(object({
+  type = object({
     alb_type = string
     alb_port = number
-  }))
+  })
 }
 
-variable "desired_capacity" {
-    description = "ASG desired_capacity"
-    type = number
-  
-}
-
-variable "min_size" {
-  description = "ASG min_size"
-  type = number
-}
-
-variable "max_size" {
-  description = "ASG max_size"
-  type = number
+variable "asg_config" {
+  description = "ASG configuration"
+  type = object({
+    desired_capacity = number
+    min_size = number
+    max_size = number
+  })
 }

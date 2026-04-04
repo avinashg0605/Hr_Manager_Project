@@ -63,6 +63,8 @@ alb_config = [ {
   alb_port = 80
 } ]
 
-desired_capacity = []
-min_size = 2
-max_size = 4
+asg_config = {
+  desired_capacity = 2
+  min_size = 2
+  max_size = 4
+}
