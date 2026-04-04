@@ -23,7 +23,8 @@ resource "aws_instance" "bastion" {
   instance_type = var.bastion_server_config.instance_type
   ami           = var.bastion_server_config.ami_id
   subnet_id     = var.public_subnet_1_id
-  security_groups = [aws_security_group.bastion_sg.name]
+  
+  vpc_security_group_ids = [ var.bastion_sg ]
   key_name = aws_key_pair.key_pair.key_name
 
   root_block_device {
