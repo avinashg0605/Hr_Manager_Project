@@ -19,29 +19,29 @@ variable "bastion_server_config" {
   })
 }
 
-variable "web_ec2" {
-  type = list(object({
-    name              = string
-    ami               = string
-    instance_type     = string
-    availability_zone = string
-    key_name          = string
-    ebs_volume_size   = number
-    tags              = map(string)
-  }))
-}
+# variable "web_ec2" {
+#   type = list(object({
+#     name              = string
+#     ami               = string
+#     instance_type     = string
+#     availability_zone = string
+#     key_name          = string
+#     ebs_volume_size   = number
+#     tags              = map(string)
+#   }))
+# }
 
-variable "api_ec2" {
-  type = list(object({
-    name              = string
-    ami               = string
-    instance_type     = string
-    availability_zone = string
-    key_name          = string
-    ebs_volume_size   = number
-    tags              = map(string)
-  }))
-}
+# variable "api_ec2" {
+#   type = list(object({
+#     name              = string
+#     ami               = string
+#     instance_type     = string
+#     availability_zone = string
+#     key_name          = string
+#     ebs_volume_size   = number
+#     tags              = map(string)
+#   }))
+# }
 
 variable "alb_config" {
   description = "ALB configuration"

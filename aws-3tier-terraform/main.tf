@@ -11,21 +11,21 @@ module "sg" {
   vpc_id = module.vpc.vpc_id
 }
 
-# module "ec2" {
-#   source = "./modules/ec2"
+module "ec2" {
+  source = "./modules/ec2"
   
-#   vpc_id                = module.vpc.vpc_id
+  vpc_id                = module.vpc.vpc_id
   
-#   public_subnet_1_id    = module.vpc.public_subnet_1_id
+  public_subnet_1_id    = module.vpc.public_subnet_1_id
   
-#   bastion_server_config = [
-#     var.bastion_server_config.instance_type,
-#     var.bastion_server_config.ami_id,
-#     var.bastion_server_config.ebs_volume_size
-#   ]
-#     alb_sg = module.sg.alb_sg
-#     public_ec2_sg = module.sg.public_ec2_sg
-#     private_ec2_sg = module.sg.private_ec2_sg
+  bastion_server_config = [
+    var.bastion_server_config.instance_type,
+    var.bastion_server_config.ami_id,
+    var.bastion_server_config.ebs_volume_size
+  ]
+    # alb_sg = module.sg.alb_sg
+    public_ec2_sg = module.sg.public_ec2_sg
+    # private_ec2_sg = module.sg.private_ec2_sg
   
 #   web_ec2 =[
 #       var.web_ec2.name,
@@ -46,7 +46,7 @@ module "sg" {
 #       var.api_ec2.ebs_volume_size,
 #       var.api_ec2.tags             
 #   ]
-# }
+}
 
 # module "alb" {
 #   source = "./modules/alb"

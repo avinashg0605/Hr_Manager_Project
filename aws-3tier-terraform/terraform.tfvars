@@ -17,47 +17,47 @@ bastion_server_config = {
   ebs_volume_size = 10
 }
 
-web_ec2 = [
-  {
-    name              = "web-1"
-    ami               = "ami-0abcdef1234567890"
-    instance_type     = "t2.micro"
-    availability_zone = "us-east-1a"
-    key_name          = "my-keypair"
-    ebs_volume_size   = 10
-    tags = {
-      Environment = "dev"
-      Role        = "web"
-    }
-  },
-  {
-    name              = "web-2"
-    ami               = "ami-0abcdef1234567890"
-    instance_type     = "t2.micro"
-    availability_zone = "us-east-1b"
-    key_name          = "my-keypair"
-    ebs_volume_size   = 10
-    tags = {
-      Environment = "dev"
-      Role        = "web"
-    }
-  }
-]
+# web_ec2 = [
+#   {
+#     name              = "web-1"
+#     ami               = "ami-0abcdef1234567890"
+#     instance_type     = "t2.micro"
+#     availability_zone = "us-east-1a"
+#     key_name          = "my-keypair"
+#     ebs_volume_size   = 10
+#     tags = {
+#       Environment = "dev"
+#       Role        = "web"
+#     }
+#   },
+#   {
+#     name              = "web-2"
+#     ami               = "ami-0abcdef1234567890"
+#     instance_type     = "t2.micro"
+#     availability_zone = "us-east-1b"
+#     key_name          = "my-keypair"
+#     ebs_volume_size   = 10
+#     tags = {
+#       Environment = "dev"
+#       Role        = "web"
+#     }
+#   }
+# ]
 
-api_ec2 = [
-  {
-    name              = "api-1"
-    ami               = "ami-0abcdef1234567890"
-    instance_type     = "t2.micro"
-    availability_zone = "us-east-1a"
-    key_name          = "my-keypair"
-    ebs_volume_size   = 10
-    tags = {
-      Environment = "dev"
-      Role        = "api"
-    }
-  }
-]
+# api_ec2 = [
+#   {
+#     name              = "api-1"
+#     ami               = "ami-0abcdef1234567890"
+#     instance_type     = "t2.micro"
+#     availability_zone = "us-east-1a"
+#     key_name          = "my-keypair"
+#     ebs_volume_size   = 10
+#     tags = {
+#       Environment = "dev"
+#       Role        = "api"
+#     }
+#   }
+# ]
 
 alb_config = {
   alb_port = 80
