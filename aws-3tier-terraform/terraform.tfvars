@@ -13,6 +13,6 @@ private_subnet_cidr = [
 
 bastion_server_config = {
   instance_type = "t2.micro"
-  ami_id = "ami-0abcdef1234567890"
+  ami_id = "ami-01b14b7ad41e17ba4"
   ebs_volume_size = 10
 }
