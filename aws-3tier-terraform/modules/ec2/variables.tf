@@ -35,10 +35,10 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-variable "key_name" {
-  type        = string
-  description = "Key pair name for SSH access"
-}
+# variable "key_name" {
+#   type        = string
+#   description = "Key pair name for SSH access"
+# }
 
 # variable "subnet_id" {
 #   type        = string
