@@ -11,35 +11,6 @@ variable "private_subnet_cidr" {
   type = list(string)
 }
 
-# variable "bastion_server_config" {
-#   type = object({
-#     instance_type   = string
-#     ami_id          = string
-#     ebs_volume_size = number
-#     #  key_name           = string
-#   })
-# }
-
-
-# variable "web_servers" {
-#   description = "Map of EC2 servers to create"
-#   type = map(object({
-#     ami_id             = string
-#     instance_type      = string
-#     key_name           = string
-#     instance_ebs_volume = number
-#   }))
-# }
-
-# variable "app_servers" {
-#   description = "Map of EC2 servers to create"
-#   type = map(object({
-#     ami_id             = string
-#     instance_type      = string
-#     key_name           = string
-#     instance_ebs_volume = number
-#   }))
-# }
 
 variable "bastion" {
   type = object({
@@ -63,4 +34,16 @@ variable "app_servers" {
     instance_type     = string
     instance_ebs_volume = number
   }))
+}
+
+########################################
+# ALB Variables
+########################################
+variable "alb_config" {
+  type = object({
+    alb_name   = string
+    alb_type   = string
+    alb_port   = number
+  })
+  description = "Configuration for the Application Load Balancer"
 }

@@ -62,3 +62,13 @@ variable "subnet_id" { type = string }
 variable "security_group_ids" { type = list(string) }
 variable "key_name" { type = string }
 variable "instance_ebs_volume" { type = number }
+
+variable "target_group_arn" {
+  type = string
+  default = null
+}
+
+variable "instances_map" {
+  type = map(any)
+  default = {}
+}

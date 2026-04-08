@@ -26,52 +26,6 @@ module "sg" {
   vpc_id = module.vpc.vpc_id
 }
 
-# module "bastion" {
-#   source = "./modules/ec2"
-
-#   vpc_id                = module.vpc.vpc_id
-  
-#   public_subnet_1_id    = module.vpc.public_subnet_1_id  
-#   bastion_server_config = var.bastion_server_config
-#   bastion_sg = module.sg.bastion_sg_id
-#   key_name = aws_key_pair.key_pair.key_name
-# }
-
-# module "web_ec2" {
-#   source = "./modules/ec2"
-
-#   instance_name      = each.key
-#   ami_id             = each.value.ami_id
-#   instance_type      = each.value.instance_type
-#   instance_ebs_volume = each.value.instance_ebs_volume
-#   private_subnet_2_id = module.vpc.private_subnet_2_id
-#   web_ec2_sg = module.sg.web_ec2_sg
-#   app_ec2_sg = module.sg.app_ec2_sg
-#   key_name = aws_key_pair.key_pair.key_name
-
-
-# }
-# module "ec2" {
-#   source = "./modules/ec2"
-  
-#   vpc_id                = module.vpc.vpc_id
-  
-#   public_subnet_1_id    = module.vpc.public_subnet_1_id  
-#   bastion_server_config = var.bastion_server_config
-#   bastion_sg = module.sg.bastion_sg_id
-#   key_name = aws_key_pair.key_pair.key_name
-    
-#   for_each = var.web_servers
-
-#   instance_name      = each.key
-#   ami_id             = each.value.ami_id
-#   instance_type      = each.value.instance_type
-#   instance_ebs_volume = each.value.instance_ebs_volume
-#   private_subnet_2_id = module.vpc.private_subnet_2_id
-#   web_ec2_sg = module.sg.web_ec2_sg
-#   app_ec2_sg = module.sg.app_ec2_sg
-# }
-
 # Bastion (public subnet)
 module "bastion" {
   source = "./modules/ec2"
@@ -97,6 +51,8 @@ module "web" {
   security_group_ids  = [module.sg.web_ec2_sg]
   key_name            = aws_key_pair.key_pair.key_name
   instance_ebs_volume = each.value.instance_ebs_volume
+
+  # target_group_arn    = module.alb.target_group_arn
 }
 
 # App servers (private subnet)
@@ -111,4 +67,19 @@ module "app" {
   security_group_ids  = [module.sg.app_ec2_sg]
   key_name            = aws_key_pair.key_pair.key_name
   instance_ebs_volume = each.value.instance_ebs_volume
+}
+
+module "alb" {
+  source             = "./modules/alb"
+  alb_name           = "app-alb"
+  alb_type           = "application"
+  subnet_ids         = [module.vpc.public_subnet_1_id, module.vpc.public_subnet_2_id]
+  security_group_ids = [module.sg.alb_sg_id]
+  vpc_id             = module.vpc.vpc_id
+
+  target_group_port     = 80
+  target_group_protocol = "HTTP"
+
+  listener_port     = 80
+  listener_protocol = "HTTP"
 }

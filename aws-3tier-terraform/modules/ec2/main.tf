@@ -68,3 +68,10 @@ resource "aws_instance" "this" {
     Name = var.instance_name
   }
 }
+
+resource "aws_lb_target_group_attachment" "web" {
+  for_each = var.instances_map # map of web instances passed via root module
+  target_group_arn = var.target_group_arn
+  target_id        = aws_instance.this.id
+  port             = 80
+}
