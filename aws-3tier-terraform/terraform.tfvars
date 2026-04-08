@@ -75,3 +75,9 @@ app_servers = {
     instance_ebs_volume = 8
   }
 }
+
+alb_config = {
+  alb_name = "Hr_application"
+  alb_port = 80
+  alb_type = "application"
+}
