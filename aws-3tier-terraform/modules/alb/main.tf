@@ -33,8 +33,16 @@ resource "aws_lb_listener" "listener" {
   }
 }
 
-resource "aws_lb_target_group_attachment" "tg_attch" {
-  target_group_arn = aws_lb_target_group.tg.arn
-  target_id = [ var.target_id ]
+# resource "aws_lb_target_group_attachment" "tg_attch" {
+#   target_group_arn = aws_lb_target_group.tg.arn
+#   target_id = [ var.target_id ]
   
+# }
+
+resource "aws_lb_target_group_attachment" "tg_attachment" {
+  for_each = toset(var.target_id)
+
+  target_group_arn = aws_lb_target_group.tg.arn
+  target_id        = each.value
+  port             = 80
 }
