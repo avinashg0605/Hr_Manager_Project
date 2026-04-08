@@ -26,3 +26,6 @@
 # #   value = aws_instance.this.public_ip
 # # }
 
+output "instance_ids" {
+  value = aws_instance.web[*].id
+}
