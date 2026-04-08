@@ -1,3 +1,18 @@
+resource "tls_private_key" "generated" {
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "aws_key_pair" "key_pair" {
+  key_name   = "Hr_manager_bastion"
+  public_key = tls_private_key.generated.public_key_openssh
+}
+
+resource "local_file" "private_key" {
+  content  = tls_private_key.generated.private_key_pem
+  filename = "Hr_manager_bastion.pem"
+}
+
 module "vpc" {
   source = "./modules/vpc"
 
@@ -11,22 +26,89 @@ module "sg" {
   vpc_id = module.vpc.vpc_id
 }
 
-module "ec2" {
-  source = "./modules/ec2"
+# module "bastion" {
+#   source = "./modules/ec2"
+
+#   vpc_id                = module.vpc.vpc_id
   
-  vpc_id                = module.vpc.vpc_id
+#   public_subnet_1_id    = module.vpc.public_subnet_1_id  
+#   bastion_server_config = var.bastion_server_config
+#   bastion_sg = module.sg.bastion_sg_id
+#   key_name = aws_key_pair.key_pair.key_name
+# }
+
+# module "web_ec2" {
+#   source = "./modules/ec2"
+
+#   instance_name      = each.key
+#   ami_id             = each.value.ami_id
+#   instance_type      = each.value.instance_type
+#   instance_ebs_volume = each.value.instance_ebs_volume
+#   private_subnet_2_id = module.vpc.private_subnet_2_id
+#   web_ec2_sg = module.sg.web_ec2_sg
+#   app_ec2_sg = module.sg.app_ec2_sg
+#   key_name = aws_key_pair.key_pair.key_name
+
+
+# }
+# module "ec2" {
+#   source = "./modules/ec2"
   
-  public_subnet_1_id    = module.vpc.public_subnet_1_id  
-  bastion_server_config = var.bastion_server_config
-  bastion_sg = module.sg.bastion_sg_id
+#   vpc_id                = module.vpc.vpc_id
+  
+#   public_subnet_1_id    = module.vpc.public_subnet_1_id  
+#   bastion_server_config = var.bastion_server_config
+#   bastion_sg = module.sg.bastion_sg_id
+#   key_name = aws_key_pair.key_pair.key_name
     
+#   for_each = var.web_servers
+
+#   instance_name      = each.key
+#   ami_id             = each.value.ami_id
+#   instance_type      = each.value.instance_type
+#   instance_ebs_volume = each.value.instance_ebs_volume
+#   private_subnet_2_id = module.vpc.private_subnet_2_id
+#   web_ec2_sg = module.sg.web_ec2_sg
+#   app_ec2_sg = module.sg.app_ec2_sg
+# }
+
+# Bastion (public subnet)
+module "bastion" {
+  source = "./modules/ec2"
+
+  instance_name       = "bastion"
+  ami_id              = var.bastion.ami_id
+  instance_type       = var.bastion.instance_type
+  subnet_id           = module.vpc.public_subnet_1_id
+  security_group_ids  = [module.sg.bastion_sg_id]
+  key_name            = aws_key_pair.key_pair.key_name
+  instance_ebs_volume = var.bastion.ebs_volume_size
+}
+
+# Web servers (private subnet)
+module "web" {
+  source = "./modules/ec2"
   for_each = var.web_servers
 
-  instance_name      = each.key
-  ami_id             = each.value.ami_id
-  instance_type      = each.value.instance_type
+  instance_name       = each.key
+  ami_id              = each.value.ami_id
+  instance_type       = each.value.instance_type
+  subnet_id           = module.vpc.private_subnet_2_id
+  security_group_ids  = [module.sg.web_ec2_sg]
+  key_name            = aws_key_pair.key_pair.key_name
   instance_ebs_volume = each.value.instance_ebs_volume
-  private_subnet_2_id = module.vpc.private_subnet_2_id
-  web_ec2_sg = module.sg.web_ec2_sg
-  app_ec2_sg = module.sg.app_ec2_sg
+}
+
+# App servers (private subnet)
+module "app" {
+  source = "./modules/ec2"
+  for_each = var.app_servers
+
+  instance_name       = each.key
+  ami_id              = each.value.ami_id
+  instance_type       = each.value.instance_type
+  subnet_id           = module.vpc.private_subnet_2_id
+  security_group_ids  = [module.sg.app_ec2_sg]
+  key_name            = aws_key_pair.key_pair.key_name
+  instance_ebs_volume = each.value.instance_ebs_volume
 }
