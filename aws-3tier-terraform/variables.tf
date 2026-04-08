@@ -25,7 +25,7 @@ variable "web_servers" {
   type = map(object({
     ami_id             = string
     instance_type      = string
-    key_name           = string
+    # key_name           = string
     instance_ebs_volume = number
   }))
 }
