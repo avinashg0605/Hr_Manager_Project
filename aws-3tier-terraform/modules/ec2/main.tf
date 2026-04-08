@@ -24,7 +24,7 @@ resource "aws_instance" "web_servers" {
   subnet_id     = var.public_subnet_1_id
   
   vpc_security_group_ids = [ var.web_ec2_sg ]
-  key_name = aws_key_pair.web_key_name.key_name
+  key_name = aws_key_pair.key_name.key_name
 
   root_block_device {
     volume_size = var.instance_ebs_volume
