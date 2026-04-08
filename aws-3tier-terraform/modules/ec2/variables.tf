@@ -6,7 +6,7 @@ variable "private_subnet_2_id" {
 variable "bastion_sg" {}
 variable "web_ec2_sg" {}
 variable "app_ec2_sg" {}
-variable "rds_ec2_sg" {}
+# variable "rds_ec2_sg" {}
 
 variable "bastion_server_config" {
   type = object({
@@ -40,15 +40,15 @@ variable "key_name" {
   description = "Key pair name for SSH access"
 }
 
-variable "subnet_id" {
-  type        = string
-  description = "Subnet ID where instance will be launched"
-}
+# variable "subnet_id" {
+#   type        = string
+#   description = "Subnet ID where instance will be launched"
+# }
 
-variable "security_group_ids" {
-  type        = list(string)
-  description = "Security group IDs"
-}
+# variable "security_group_ids" {
+#   type        = list(string)
+#   description = "Security group IDs"
+# }
 variable "instance_ebs_volume" {
   type = number
   description = "Instance EBS Volumes"

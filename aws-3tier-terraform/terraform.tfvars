@@ -19,24 +19,19 @@ bastion_server_config = {
 
 web_servers = {
   web1 = {
-    ami_id             = "ami-12345678"
-    instance_type      = "t3.micro"
-    key_name           = "mykey"
-    subnet_id          = "subnet-11111111"
-    security_group_ids = ["sg-11111111"]
+    ami_id             = "ami-01b14b7ad41e17ba4"
+    instance_type      = "t2.nano"
+    ebs_volume_size = 8
   }
   web2 = {
-    ami_id             = "ami-12345678"
-    instance_type      = "t3.micro"
-    key_name           = "mykey"
-    subnet_id          = "subnet-11111112"
-    security_group_ids = ["sg-11111111"]
+    ami_id             = "ami-01b14b7ad41e17ba4"
+    instance_type      = "t2.nano"
+    ebs_volume_size = 8
   }
   db1 = {
-    ami_id             = "ami-87654321"
-    instance_type      = "t3.medium"
-    key_name           = "mykey"
-    subnet_id          = "subnet-11111113"
-    security_group_ids = ["sg-22222222"]
+    ami_id             = "ami-01b14b7ad41e17ba4"
+    instance_type      = "t2.nano"
+    ebs_volume_size = 8
+
   }
 }

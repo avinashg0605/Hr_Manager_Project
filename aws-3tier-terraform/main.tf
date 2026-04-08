@@ -21,12 +21,16 @@ module "ec2" {
   bastion_server_config = var.bastion_server_config
   bastion_sg = module.sg.bastion_sg_id
     
-    for_each = var.web_servers
+  for_each = var.web_servers
 
   instance_name      = each.key
   ami_id             = each.value.ami_id
   instance_type      = each.value.instance_type
   key_name           = each.value.key_name
-  subnet_id          = each.value.subnet_id
-  security_group_ids = each.value.security_group_ids
+  instance_ebs_volume = each.value.ebs_volume_size
+  
+  private_subnet_2_id = module.vpc.private_subnet_2_id
+  web_ec2_sg = module.sg.web_ec2_sg
+  app_ec2_sg = module.sg.app_ec2_sg
+  
 }
