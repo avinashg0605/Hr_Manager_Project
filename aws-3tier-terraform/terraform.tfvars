@@ -21,19 +21,16 @@ web_servers = {
   web1 = {
     ami_id              = "ami-01b14b7ad41e17ba4"
     instance_type       = "t2.nano"
-    # key_name            = "your-keypair-name"
     instance_ebs_volume = 8
   }
   web2 = {
     ami_id              = "ami-01b14b7ad41e17ba4"
     instance_type       = "t2.nano"
-    # key_name            = "your-keypair-name"
     instance_ebs_volume = 8
   }
   db1 = {
     ami_id              = "ami-01b14b7ad41e17ba4"
     instance_type       = "t2.nano"
-    # key_name            = "your-keypair-name"
     instance_ebs_volume = 8
   }
 }

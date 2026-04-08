@@ -16,9 +16,7 @@ module "ec2" {
   
   vpc_id                = module.vpc.vpc_id
   
-  public_subnet_1_id    = module.vpc.public_subnet_1_id
-  # key_name = aws_key_pair.key_pair.key_name
-  
+  public_subnet_1_id    = module.vpc.public_subnet_1_id  
   bastion_server_config = var.bastion_server_config
   bastion_sg = module.sg.bastion_sg_id
     
@@ -32,22 +30,3 @@ module "ec2" {
   web_ec2_sg = module.sg.web_ec2_sg
   app_ec2_sg = module.sg.app_ec2_sg
 }
-
-# =========================================
-# KEY PAIR
-# =========================================
-resource "tls_private_key" "generated" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "aws_key_pair" "key_pair" {
-  key_name   = "Hr_manager_bastion"
-  public_key = tls_private_key.generated.public_key_openssh
-}
-
-resource "local_file" "private_key" {
-  content  = tls_private_key.generated.private_key_pem
-  filename = "Hr_manager_bastion.pem"
-}
-

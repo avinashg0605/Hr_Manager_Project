@@ -13,7 +13,6 @@ variable "bastion_server_config" {
     instance_type   = string
     ami_id          = string
     ebs_volume_size = number
-    key_name = string
   })
 }
 
