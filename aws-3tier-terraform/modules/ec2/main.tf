@@ -1,21 +1,3 @@
-# =========================================
-# KEY PAIR
-# =========================================
-resource "tls_private_key" "generated" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "aws_key_pair" "key_pair" {
-  key_name   = local.key_pair_name
-  public_key = tls_private_key.generated.public_key_openssh
-}
-
-resource "local_file" "private_key" {
-  content  = tls_private_key.generated.private_key_pem
-  filename = "${local.key_pair_name}.pem"
-}
-
 #################################
 # BASTION EC2 Instance
 #################################
@@ -42,7 +24,7 @@ resource "aws_instance" "web_servers" {
   subnet_id     = var.public_subnet_1_id
   
   vpc_security_group_ids = [ var.web_ec2_sg ]
-  key_name = aws_key_pair.key_pair.key_name
+  key_name = aws_key_pair.web_key_name.key_name
 
   root_block_device {
     volume_size = var.instance_ebs_volume

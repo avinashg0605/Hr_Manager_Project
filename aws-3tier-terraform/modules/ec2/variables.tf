@@ -13,6 +13,7 @@ variable "bastion_server_config" {
     instance_type   = string
     ami_id          = string
     ebs_volume_size = number
+    key_name = string
   })
 }
 
@@ -35,7 +36,7 @@ variable "instance_type" {
   default     = "t2.micro"
 }
 
-# variable "key_name" {
+# variable "web_key_name" {
 #   type        = string
 #   description = "Key pair name for SSH access"
 # }

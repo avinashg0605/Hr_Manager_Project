@@ -16,6 +16,7 @@ variable "bastion_server_config" {
     instance_type   = string
     ami_id          = string
     ebs_volume_size = number
+     key_name           = string
   })
 }
 
@@ -25,7 +26,7 @@ variable "web_servers" {
   type = map(object({
     ami_id             = string
     instance_type      = string
-    # key_name           = string
+    # web_key_name           = string
     instance_ebs_volume = number
   }))
 }
