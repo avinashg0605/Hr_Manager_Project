@@ -84,6 +84,6 @@ module "alb" {
   listener_protocol = "HTTP"
   target_id = flatten([
   for web_instance in module.web :
-  web_instance.instance_ids
+  web_instance.instance_id
 ])
 }
