@@ -82,4 +82,5 @@ module "alb" {
 
   listener_port     = 80
   listener_protocol = "HTTP"
+  target_id = [ module.ec2.web_servers[*].id ]
 }
