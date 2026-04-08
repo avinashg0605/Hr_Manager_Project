@@ -7,6 +7,6 @@ variable "target_group_port" { type = number  }
 variable "target_group_protocol" { type = string  }
 variable "listener_port" { type = number  }
 variable "listener_protocol" { type = string  }
-variable "target_ids" {
-  type = list(string)
-}
+# variable "target_ids" {
+#   type = list(string)
+# }
