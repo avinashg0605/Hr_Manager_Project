@@ -52,7 +52,7 @@ module "web" {
   key_name            = aws_key_pair.key_pair.key_name
   instance_ebs_volume = each.value.instance_ebs_volume
 
-  # target_group_arn    = module.alb.target_group_arn
+  target_group_arn    = module.alb.target_group_arn
 }
 
 # App servers (private subnet)
