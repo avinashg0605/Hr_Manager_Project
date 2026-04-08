@@ -57,7 +57,7 @@ resource "aws_security_group" "alb_sg" {
 #################################
 # Public EC2 Security Group
 #################################
-resource "aws_security_group" "public_ec2_sg" {
+resource "aws_security_group" "web_ec2_sg" {
   name        = "${local.project_name}-public-ec2-sg"
   description = "Allow traffic from ALB"
   vpc_id      = var.vpc_id
@@ -94,7 +94,7 @@ resource "aws_security_group" "public_ec2_sg" {
 #################################
 # Private EC2 Security Group
 #################################
-resource "aws_security_group" "private_ec2_sg" {
+resource "aws_security_group" "app_ec2_sg" {
   name        = "${local.project_name}-private-ec2-sg"
   description = "Allow app traffic from public EC2"
   vpc_id      = var.vpc_id
@@ -104,7 +104,7 @@ resource "aws_security_group" "private_ec2_sg" {
     from_port       = 3000
     to_port         = 3000
     protocol        = "tcp"
-    security_groups = [aws_security_group.public_ec2_sg.id]
+    security_groups = [aws_security_group.web_ec2_sg.id]
   }
 
   egress {
@@ -132,7 +132,7 @@ resource "aws_security_group" "rds_sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.private_ec2_sg.id]
+    security_groups = [aws_security_group.app_ec2_sg.id]
   }
 
   egress {

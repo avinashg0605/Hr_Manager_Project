@@ -17,3 +17,11 @@ output "bastion_private_ip" {
 #   description = "Security Group ID attached to Bastion"
 #   value       = aws_security_group.bastion_sg.id
 # }
+
+output "instance_id" {
+  value = aws_instance.this.id
+}
+
+output "public_ip" {
+  value = aws_instance.this.public_ip
+}

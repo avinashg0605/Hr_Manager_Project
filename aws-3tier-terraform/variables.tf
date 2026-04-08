@@ -18,3 +18,26 @@ variable "bastion_server_config" {
     ebs_volume_size = number
   })
 }
+
+
+variable "web_servers" {
+  description = "Map of EC2 servers to create"
+  type = map(object({
+    ami_id             = string
+    instance_type      = string
+    key_name           = string
+    subnet_id          = string
+    security_group_ids = list(string)
+  }))
+}
+
+variable "web_servers" {
+  description = "Map of EC2 servers to create"
+  type = map(object({
+    ami_id             = string
+    instance_type      = string
+    key_name           = string
+    subnet_id          = string
+    security_group_ids = list(string)
+  }))
+}
