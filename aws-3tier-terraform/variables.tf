@@ -47,6 +47,6 @@ variable "alb_config" {
   })
   description = "Configuration for the Application Load Balancer"
 }
-variable "target_id" {
+variable "target_ids" {
   type = list(string)
 }
