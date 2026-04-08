@@ -28,7 +28,7 @@ module "ec2" {
   instance_type      = each.value.instance_type
   key_name           = each.value.key_name
   instance_ebs_volume = each.value.ebs_volume_size
-  
+
   private_subnet_2_id = module.vpc.private_subnet_2_id
   web_ec2_sg = module.sg.web_ec2_sg
   app_ec2_sg = module.sg.app_ec2_sg
